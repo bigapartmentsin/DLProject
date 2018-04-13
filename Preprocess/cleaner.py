@@ -57,10 +57,13 @@ def getContent(content, tag="HEADLINE"):
     for i, x in enumerate(docs_flags): 
         
         try:
-            if init_index[tag_counter] < docs_flags[i]:
+            if init_index[tag_counter] < docs_flags[i] and init_index[tag_counter] < end_index[tag_counter] -1:
                 content_intrest = content[init_index[tag_counter]+1:end_index[tag_counter]]
                 return_list.append(content_intrest)
-                tag_counter += 1            
+                tag_counter += 1  
+            elif init_index[tag_counter] < docs_flags[i] and init_index[tag_counter] >= end_index[tag_counter] -1:
+                return_list.append([b'\n'])
+                tag_counter += 1 
             else: 
                 return_list.append([b'\n'])
         except IndexError:
@@ -68,7 +71,6 @@ def getContent(content, tag="HEADLINE"):
             
     return return_list
 
-quoted = re.compile('"[^"*]*"')
 quoted = re.compile('"[^"*]*"')
 
 def getDocID(content):
