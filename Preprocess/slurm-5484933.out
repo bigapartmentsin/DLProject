@@ -1,0 +1,69 @@
+Lmod has detected the following error: Your site prevents the automatic
+swapping of modules with same name. You must explicitly unload the loaded
+version of "python3/intel" before you can load the new one. Use swap (or an
+unload followed by a load) to do this:
+
+   $ module swap python3/intel  python3/intel/3.6.3
+
+Alternatively, you can set the environment variable
+LMOD_DISABLE_SAME_NAME_AUTOSWAP to "no" to re-enable same name autoswapping. 
+
+While processing the following module(s):
+
+Module fullname               Module Filename
+---------------               ---------------
+numpy/python3.6/intel/1.14.0  /share/apps/modulefiles/numpy/python3.6/intel/1.14.0.lua
+Namespace(inp_dr='/scratch/eff254/DL/project/data/gigaword_eng_5/data', out_dr='/scratch/eff254/DL/project/data/gigaword_eng_5_decompressed', source='cna_eng')
+Working in: cna_eng_199810.gz
+Processing... 0/144
+Working in: cna_eng_200808.gz
+Working in: cna_eng_200401.gz
+Working in: cna_eng_200810.gz
+Working in: cna_eng_200504.gz
+Working in: cna_eng_199811.gz
+Working in: cna_eng_200201.gz
+Working in: cna_eng_200507.gz
+Working in: cna_eng_200105.gz
+Working in: cna_eng_200708.gz
+Working in: cna_eng_201005.gz
+Working in: cna_eng_200006.gz
+Working in: cna_eng_200505.gz
+Working in: cna_eng_200610.gz
+Working in: cna_eng_200912.gz
+Working in: cna_eng_200603.gz
+Working in: cna_eng_200606.gz
+Working in: cna_eng_201003.gz
+Working in: cna_eng_200608.gz
+Working in: cna_eng_200008.gz
+Working in: cna_eng_200403.gz
+Working in: cna_eng_200903.gz
+Working in: cna_eng_200510.gz
+Working in: cna_eng_200108.gz
+Working in: cna_eng_200707.gz
+Working in: cna_eng_200309.gz
+Working in: cna_eng_200506.gz
+Traceback (most recent call last):
+  File "cleaner.py", line 126, in <module>
+    headlines = headlineCleaner(headlines)
+  File "cleaner.py", line 89, in headlineCleaner
+    headline_list = [line[0].decode("UTF-8").replace('\n', '') for i, line in enumerate(headline_list)]
+  File "cleaner.py", line 89, in <listcomp>
+    headline_list = [line[0].decode("UTF-8").replace('\n', '') for i, line in enumerate(headline_list)]
+IndexError: list index out of range
+cna_eng done...
+Namespace(inp_dr='/scratch/eff254/DL/project/data/gigaword_eng_5/data', out_dr='/scratch/eff254/DL/project/data/gigaword_eng_5_decompressed', source='wpb_eng')
+Working in: wpb_eng_201006.gz
+Processing... 0/12
+Working in: wpb_eng_201008.gz
+Working in: wpb_eng_201003.gz
+Working in: wpb_eng_201010.gz
+Working in: wpb_eng_201009.gz
+Working in: wpb_eng_201007.gz
+Working in: wpb_eng_201001.gz
+Working in: wpb_eng_201002.gz
+Working in: wpb_eng_201012.gz
+Working in: wpb_eng_201011.gz
+Working in: wpb_eng_201005.gz
+Working in: wpb_eng_201004.gz
+wpb_eng done...
+slurmstepd: error: *** JOB 5484933 ON c21-03 CANCELLED AT 2018-04-13T12:19:36 ***

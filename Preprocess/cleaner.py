@@ -120,7 +120,6 @@ if __name__ == "__main__":
     all_files = os.listdir(args.inp_dr + "/" + args.source)
     new_names = [name.replace(".gz", "") for name in all_files]
     for i, myfile in enumerate(all_files):
-        print("Working in: {}".format(myfile))
         file_content = importFile(args.source, myfile)
         headlines = getContent(file_content,"HEADLINE")
         headlines = headlineCleaner(headlines)
