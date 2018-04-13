@@ -8,10 +8,8 @@ import argparse
 # Check: https://github.com/kpu/preprocess
 
 parser = argparse.ArgumentParser()
-#parser.add_argument('--inp_dr', default="/scratch/eff254/DL/project/data/gigaword_eng_5/data", type=str, help="Data Directory")
-#parser.add_argument('--out_dr', default="/scratch/eff254/DL/project/data/gigaword_eng_5/data", type=str, help="Directory for out data")
-parser.add_argument('--inp_dr', default="//Users/eduardofierro/Google Drive/CuartoSemestre/DeepLearning/Project/Data/gigaword_eng_5/data", type=str, help="Data Directory")
-parser.add_argument('--out_dr', default="/Users/eduardofierro/Desktop/Temp/", type=str, help="Directory for out data")
+parser.add_argument('--inp_dr', default="/scratch/eff254/DL/project/data/gigaword_eng_5/data", type=str, help="Data Directory")
+parser.add_argument('--out_dr', default="/scratch/eff254/DL/project/data/gigaword_eng_5_decompressed", type=str, help="Directory for out data")
 parser.add_argument('--source', default="nyt_eng", type=str, help="One of ['cna_eng', 'wpb_eng', 'afp_eng', 'xin_eng', 'apw_eng', 'ltw_eng', 'nyt_eng']")
 args = parser.parse_args()
 print(args)
@@ -50,17 +48,27 @@ def getContent(content, tag="HEADLINE"):
     Returns:
     @return_list: list of lines, with length = #of apperance of tag   
     '''
-    
+    docs_flags = [i for i, line in enumerate(file_content) if line.decode("UTF-8")=="</DOC>\n"]
     init_index = [i for i, line in enumerate(file_content) if line.decode("UTF-8")=="<" + tag + ">\n"]
     end_index = [i for i, line in enumerate(file_content) if line.decode("UTF-8")=="</" + tag + ">\n"]
     
     return_list = []
-    for i, x in enumerate(init_index): 
-        content_intrest = content[init_index[i]+1:end_index[i]]
-        return_list.append(content_intrest)
-    
+    tag_counter = 0
+    for i, x in enumerate(docs_flags): 
+        
+        try:
+            if init_index[tag_counter] < docs_flags[i]:
+                content_intrest = content[init_index[tag_counter]+1:end_index[tag_counter]]
+                return_list.append(content_intrest)
+                tag_counter += 1            
+            else: 
+                return_list.append([b'\n'])
+        except IndexError:
+                return_list.append([b'\n'])
+            
     return return_list
 
+quoted = re.compile('"[^"*]*"')
 quoted = re.compile('"[^"*]*"')
 
 def getDocID(content):
@@ -97,20 +105,32 @@ def exporter(list_, filename_, out_dir = args.out_dr):
         for i, line in enumerate(list_):
             f.write(line + "\n")
 
+def consistencyChecker(obj): 
+    
+    for i in range(0, len(obj)-1):       
+        if len(obj[i]) != len(obj[i+1]):           
+            raise AttributeError("Length of your lists are not the same")
+
 if __name__ == "__main__":
+    
+    new_out_dir = args.out_dr + "/" + args.source
+    if not os.path.exists(new_out_dir):
+        os.makedirs(new_out_dir)
     
     all_files = os.listdir(args.inp_dr + "/" + args.source)
     new_names = [name.replace(".gz", "") for name in all_files]
     for i, myfile in enumerate(all_files):
+        print("Working in: {}".format(myfile))
         file_content = importFile(args.source, myfile)
         headlines = getContent(file_content,"HEADLINE")
         headlines = headlineCleaner(headlines)
         text = getContent(file_content,"TEXT")
         text = textCleaner(text)
         id_list, types_id = getDocID(file_content)
-        exporter(headlines, new_names[i] + '.hls')
-        exporter(text, new_names[i] + '.txt')
-        exporter(id_list, new_names[i] + '.ids')
-        exporter(types_id, new_names[i] + '.tps')
+        consistencyChecker([id_list, types_id, text, headlines])
+        exporter(headlines, new_names[i] + '.hls', new_out_dir)
+        exporter(text, new_names[i] + '.txt', new_out_dir)
+        exporter(id_list, new_names[i] + '.ids', new_out_dir)
+        exporter(types_id, new_names[i] + '.tps', new_out_dir)
         if i % 50==0:
         	print("Processing... {}/{}".format(i, len(all_files)))
