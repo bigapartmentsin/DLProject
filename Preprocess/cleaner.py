@@ -5,6 +5,7 @@ import os
 import gzip
 import re
 import argparse
+import pickle
 # Check: https://github.com/kpu/preprocess
 
 parser = argparse.ArgumentParser()
