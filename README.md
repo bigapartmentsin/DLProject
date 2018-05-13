@@ -44,5 +44,6 @@ python train.py -data INPUT_DIRECTORY/bpe \
                 -bridge
 
 ```
+You can also specify the ```share_embeddings``` option or none. For comparisson purposes, run the model using BPE data and data that has not converted into Byte Pairs. 
 
-
+### Evaluation
