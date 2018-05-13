@@ -16,6 +16,8 @@ To pre-process the data, we followed Rico Sennrich's subword-NMT scripts, availa
 
 The model follows the specification publicly available by Guillaume Klein, Yoon Kim, Yuntian Dengm, Jean Senellart and Alexander M. Rush, available here: https://github.com/OpenNMT/OpenNMT-py. Due to recent changes for the implementation of pytorch 0.4, the codes were forked to this repository. For requirements, please refer to the README.md file of the repository. 
 
+### Training models
+
 Once the requirements are met, you can pre-process the data to generate the lazy dataloaders with the followin code: 
 
 ```shell
