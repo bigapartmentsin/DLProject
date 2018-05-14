@@ -9,7 +9,7 @@ Eduardo Fierro (eff254), Lisa Ren (tr1312), Caroline Roper (cer446)
 
 You can download the RAW and pre-processed data used in this project from an NYU email (XXXX@nyu.edu) from the following link: https://bit.ly/2IEN7Ke
 
-### Preporcess
+### Preprocess
 
 To pre-process the data, we followed Rico Sennrich's subword-NMT scripts, available originally here: https://github.com/rsennrich/subword-nmt. All the files are available in the Preprocess folder inside this repository. Please refer to the README.md file inside that folder for instructions of replication. 
 
@@ -70,4 +70,14 @@ python translate.py -gpu 0 \
                     -ignore_when_blocking "." "</t>" "<t>"
 ```
 
-In the example above, the translations are generated with alpha = 0.9 and minimum 9 words. 
+In the example above, the translations are generated with alpha = 0.9 and a minimum 9 words.
+
+METEOR scores are obtained using the publicly available implementation authored by Michael Denkowski: https://github.com/cmu-mtlab/meteor. Please refer to the README for further installation instructions and details: http://www.cs.cmu.edu/~alavie/METEOR/README.html.
+
+The scores are obtained using the command below where bp_m9_a9.out is a text file of generated summaries and validation.title.bpe.txt is a text file of reference summaries.
+
+```shell
+java -Xmx2G -jar meteor-*.jar bpe_m9_a9.out validation.title.bpe.txt -l en -norm
+```
+
+
