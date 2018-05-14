@@ -47,3 +47,26 @@ python train.py -data INPUT_DIRECTORY/bpe \
 You can also specify the ```share_embeddings``` option or none. For comparisson purposes, run the model using BPE data and data that has not converted into Byte Pairs. 
 
 ### Evaluation
+
+To generate the translation, you can run the following: 
+
+```shell
+python translate.py -gpu 0 \
+                    -batch_size 20 \
+                    -beam_size 5 \
+                    -model SAVED_MODELS_DIRECTORY \
+                    -src PREDICTION DATA \
+                    -output OUTPUT_DIRECTORY \
+                    -min_length 9 \
+                    -verbose \
+                    -stepwise_penalty \
+                    -coverage_penalty summary \
+                    -beta 5 \
+                    -length_penalty wu \
+                    -alpha 0.9 \
+                    -verbose \
+                    -block_ngram_repeat 3 \
+                    -ignore_when_blocking "." "</t>" "<t>"
+```
+
+In the example above, the translations are generated with alpha = 0.9 and minimum 9 words. 
