@@ -18,7 +18,7 @@ The model follows the specification publicly available by Guillaume Klein, Yoon 
 
 ### Training models
 
-Once the requirements are met, you can pre-process the data to generate the lazy dataloaders with the followin code: 
+Once the requirements are met, you can pre-process the data to generate the lazy dataloaders with the following code: 
 
 ```shell
 python preprocess.py -train_src DIRECTORY_TO_SOURCE_TRAIN/train.article.txt.bpe \
@@ -32,7 +32,7 @@ python preprocess.py -train_src DIRECTORY_TO_SOURCE_TRAIN/train.article.txt.bpe 
                      -max_shard_size 524288000                                               
 ```
 
-After that, the model can be run using the following specificatio, where the directory ```INPUT_DIRECTORY```from below is the same as the ```OUTPUT_DIRECTORY``` from above: 
+After that, the model can be run using the following specification, where the directory ```INPUT_DIRECTORY```from below is the same as the ```OUTPUT_DIRECTORY``` from above: 
 
 ```shell
 python train.py -data INPUT_DIRECTORY/bpe \
@@ -44,7 +44,7 @@ python train.py -data INPUT_DIRECTORY/bpe \
                 -bridge
 
 ```
-You can also specify the ```share_embeddings``` option or none. For comparisson purposes, run the model using BPE data and data that has not converted into Byte Pairs. 
+You can also specify the ```share_embeddings``` option or none. For comparison purposes, run the model using BPE data and data that have not converted into Byte Pairs. 
 
 ### Evaluation
 
